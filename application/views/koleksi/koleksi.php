@@ -29,7 +29,7 @@
                                 <td>
                                     <a href="koleksi/detail/<?php echo $item['id']; ?>" class="btn btn-info">Detail</a>
                                     <a href="koleksi/edit/<?php echo $item['id']; ?>" class="btn btn-warning">Edit</a>
-                                    <a href="koleksi/delete/<?php echo $item['id']; ?>" class="btn btn-danger">Hapus</a>
+                                    <a onclick="konfirmasi(<?php echo $item['id']; ?>)" class="btn btn-danger">Hapus</a>
                                 </td>
                             </tr>
                         <?php } ?>
@@ -39,5 +39,14 @@
         </div>
     </div>
 </div>
+
+<script>
+    function konfirmasi(id) {
+        let text = "Apakah Anda yakin akan Menghapus data?";
+        if (confirm(text) == true) {
+            window.location.href = 'koleksi/delete/' + id;
+        }
+    }
+</script>
 
 <?php $this->load->view('layout/footer'); ?>

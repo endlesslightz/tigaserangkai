@@ -47,15 +47,37 @@ class Koleksi extends CI_Controller
         }
     }
 
-    public function edit()
+    public function edit($a)
     {
+        $data['detail'] = $this->koleksimodel->get_detail($a);
+        $this->load->view('koleksi/edit', $data);
     }
 
-    public function update()
+    public function update($id)
     {
+        $cover = $_FILES['cover']['name'];
+        $config = [
+            'upload_path' => "./assets/images/cover/",
+            'allowed_types' => "gif|jpg|png|jpeg",
+            'overwrite' => TRUE,
+            'max_size' => "2048000"
+        ];
+        $this->load->library('upload', $config);
+        $this->upload->initialize($config);
+        if ($this->upload->do_upload('cover')) {
+            $this->koleksimodel->update_cover($cover, $id);
+        }
+        if ($this->koleksimodel->update($this->input->post(), $id)) {
+            $this->session->set_flashdata('pesan', 'Data berhasil diubah');
+            redirect(base_url('koleksi'));
+        }
     }
 
-    public function delete()
+    public function delete($id)
     {
+        if ($this->koleksimodel->delete($id)) {
+            $this->session->set_flashdata('pesan', 'Data berhasil dihapus');
+            redirect(base_url('koleksi'));
+        }
     }
 }
