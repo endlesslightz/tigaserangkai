@@ -17,4 +17,15 @@ class Koleksimodel extends CI_Model
         $this->db->where('id', $a);
         return $this->db->get('koleksis')->row_array();
     }
+
+    function insert($a, $cover)
+    {
+        $data = [
+            'judul' => $a['judul'],
+            'penulis' => $a['penulis'],
+            'penerbit' => $a['penerbit'],
+            'cover' => $cover
+        ];
+        return $this->db->insert('koleksis', $data);
+    }
 }
