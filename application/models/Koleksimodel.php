@@ -28,25 +28,24 @@ class Koleksimodel extends CI_Model
         ];
         return $this->db->insert('koleksis', $data);
     }
-    function update($a, $id)
+
+    function update($a, $id, $cover = null)
     {
-        $data = [
-            'judul' => $a['judul'],
-            'penulis' => $a['penulis'],
-            'penerbit' => $a['penerbit']
-        ];
+        if ($cover == 1) {
+            $data = [
+                'cover' => $a
+            ];
+        } else {
+            $data = [
+                'judul' => $a['judul'],
+                'penulis' => $a['penulis'],
+                'penerbit' => $a['penerbit']
+            ];
+        }
         $this->db->where('id', $id);
         return $this->db->update('koleksis', $data);
     }
 
-    function update_cover($a, $id)
-    {
-        $data = [
-            'cover' => $a
-        ];
-        $this->db->where('id', $id);
-        return $this->db->update('koleksis', $data);
-    }
 
     function delete($id)
     {

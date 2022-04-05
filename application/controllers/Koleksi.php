@@ -65,7 +65,7 @@ class Koleksi extends CI_Controller
         $this->load->library('upload', $config);
         $this->upload->initialize($config);
         if ($this->upload->do_upload('cover')) {
-            $this->koleksimodel->update_cover($cover, $id);
+            $this->koleksimodel->update($cover, $id, 1);
         }
         if ($this->koleksimodel->update($this->input->post(), $id)) {
             $this->session->set_flashdata('pesan', 'Data berhasil diubah');
